@@ -26,10 +26,12 @@ export default class Scene extends React.Component {
       <View style={styles.container}>
         <Image source={require('../assets/bg.jpg')} style={styles.backgroundImage} />
         <Animated.Image
-          source={require('../assets/sprites/pokeball.png')}
+          source={require('../assets/sprites/kela.png')}
           style={{
+            position: 'absolute',
+            bottom: 0,
+            right: 0,
             transform: [
-              { translateX: accelerometerData.x },
               { translateY: accelerometerData.y },
             ]
           }}
@@ -48,9 +50,4 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover'
   },
-  sprite: {
-    position: 'absolute',
-    bottom: 0,
-    left: '40%'
-  }
 });
