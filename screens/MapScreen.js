@@ -2,6 +2,7 @@ import React from 'react';
 import {MapView, Permissions, Location} from 'expo';
 import {StyleSheet, Button, View, Text} from 'react-native';
 import generateRandomFish from '../utils/randomFish';
+import mapStyle from '../mapStyle';
 
 const latitudeDelta = 0.0100;
 const longitudeDelta = 0.0080;
@@ -82,6 +83,10 @@ export default class MapScreen extends React.Component {
           showsTraffic={false}
           showsIndoors={false}
           showsPointsOfInterest={false}
+          zoomEnabled={false}
+          zoomControlEnabled={false}
+          customMapStyle={mapStyle}
+          provider={MapView.PROVIDER_GOOGLE}
         >
           <MapView.Marker
             key={'player'}
