@@ -47,6 +47,7 @@ export default class GameScreen extends React.Component {
       const fishGot = Boolean(Math.floor(Math.random() * 2));
       this.setState({movementDetected: true, fishGot});
       const alertText = fishGot ? 'Sait kalan!' : 'Kala pääsi karkuun!';
+      Vibration.vibrate(200);
       Alert.alert(
         alertText, '',
         [{text: 'Takaisin kartalle', onPress: () => this.props.navigation.navigate('Map')}]

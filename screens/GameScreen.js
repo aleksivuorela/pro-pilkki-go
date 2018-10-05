@@ -99,11 +99,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff"
   },
-  sensor: {
-    marginTop: 15,
-    marginBottom: 15,
-    paddingHorizontal: 10
-  },
   infoText: {
     fontSize: 16
   }
