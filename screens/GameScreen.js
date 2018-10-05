@@ -12,20 +12,20 @@ export default class GameScreen extends React.Component {
   }
 
   componentDidMount() {
-    this._subscribe();
+    this.subscribe();
   }
 
   componentWillUnmount() {
-    this._unsubscribe();
+    this.unsubscribe();
   }
 
-  _subscribe = () => {
+  subscribe = () => {
     this._subscription = Accelerometer.addListener(accelerometerData => {
       this.registerMove(accelerometerData);
     });
   }
 
-  _unsubscribe = () => {
+  unsubscribe = () => {
     this._subscription && this._subscription.remove();
     this._subscription = null;
   }

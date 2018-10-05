@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "expo": "^30.0.0",
+    "expo-three": "^3.0.0-alpha.4",
     "react": "16.3.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
-    "react-navigation": "^2.9.3"
+    "react-navigation": "^2.9.3",
+    "three": "^0.97.0"
   }
 }

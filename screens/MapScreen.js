@@ -7,7 +7,7 @@ const longitudeDelta = 0.0080
 
 export default class MapScreen extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       player: {
@@ -16,16 +16,16 @@ export default class MapScreen extends React.Component {
         latitudeDelta,
         longitudeDelta,
       }
-    }
+    };
 
     this.locationWatcher = null;
   }
 
   componentWillMount() {
-    this._getLocationAsync();
+    this.getLocationAsync();
   }
 
-  _getLocationAsync = async () => {
+  getLocationAsync = async () => {
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status === 'granted') {
       this.locationWatcher = Location.watchPositionAsync({
@@ -56,7 +56,13 @@ export default class MapScreen extends React.Component {
           showsTraffic={false}
           showsIndoors={false}
           showsPointsOfInterest={false}
-        />
+        >
+          <MapView.Marker
+            key={'player'}
+            image={require('../assets/sprites/player.png')}
+            coordinate={this.state.player}
+          />
+        </MapView>
         <Button
           title="Aloita pilkkiminen"
           onPress={() => this.props.navigation.navigate('Game')}
