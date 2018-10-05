@@ -1,6 +1,6 @@
 import React from 'react';
 import {MapView, Permissions, Location} from 'expo';
-import {StyleSheet, Button, View, Text} from 'react-native';
+import {StyleSheet, Button, View, Text, Image} from 'react-native';
 import generateRandomFish from '../utils/randomFish';
 import mapStyle from '../mapStyle';
 import geolib from 'geolib'
@@ -91,9 +91,13 @@ export default class MapScreen extends React.Component {
         >
           <MapView.Marker
             key={'player'}
-            image={require('../assets/sprites/player-icefisher.png')}
             coordinate={this.state.player}
-          />
+          >
+            <Image
+              source={require('../assets/sprites/player-icefisher.png')}
+              style={{width: 60, height: 60}}
+            />
+          </MapView.Marker>
 
           {this.state.fish.map(f =>
             <MapView.Marker
