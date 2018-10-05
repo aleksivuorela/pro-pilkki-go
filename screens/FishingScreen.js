@@ -1,8 +1,8 @@
 import React from 'react';
-import {Accelerometer, AR} from 'expo';
-import {StyleSheet, Button, View, Text, Vibration} from 'react-native';
-import ARScene from '../components/AR-scene';
+import {StyleSheet, Button, View, Text, Vibration, Alert} from 'react-native';
 import { Constants, DangerZone } from 'expo';
+import Scene from '../components/scene';
+
 const { DeviceMotion } = DangerZone;
 
 export default class GameScreen extends React.Component {
@@ -40,37 +40,29 @@ export default class GameScreen extends React.Component {
   }
 
   registerMove = acceleration => {
-    let fishGot = false;
-
     if (acceleration > 2) this.setState({count: this.state.count + 1});
     if (acceleration < 2 && this.state.count !== 0) this.setState({count: 0});
 
     if (this.state.count == 3) {
-      this.setState({movementDetected: true, fishGot: Boolean(Math.floor(Math.random() * 2))});
+      const fishGot = Boolean(Math.floor(Math.random() * 2));
+      this.setState({movementDetected: true, fishGot});
+      const alertText = fishGot ? 'Sait kalan!' : 'Kala pääsi karkuun!';
+      Alert.alert(
+        alertText, '',
+        [{text: 'Takaisin kartalle', onPress: () => this.props.navigation.navigate('Map')}]
+      );
     }
-
   };
 
   render() {
-    let fishGot = this.state.fishGot;
-
     return (
       <View style={styles.container}>
-        <View style={styles.sensor}>
-          <Text></Text>
-          <Text></Text>
-        </View>
         { !this.state.movementDetected
         ? <View>
-          <Text>Kala kiinni!</Text>
-          <Text>Nosta puhelinta napataksasi kalan!</Text>
+          <Text style={styles.infoText}>Kala kiinni!</Text>
+          <Text style={styles.infoText}>Nosta puhelinta napataksasi kalan!</Text>
         </View> : null }
-        {
-          this.state.movementDetected
-          ? fishGot ? <Text>Sait kalan</Text> : <Text>Kala pääsi karkuun</Text>
-          : null
-        }
-        { this.state.movementDetected ? <Button title="Takaisin kartalle"onPress={() => this.props.navigation.navigate('Map')}/> : null}
+        <Scene />
       </View>
     );
   }
@@ -81,17 +73,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff'
   },
-  sensor: {
-    marginTop: 15,
-    marginBottom: 15,
-    paddingHorizontal: 10
-  },
-});
-
-const round = n => {
-  if (!n) {
-    return 0;
+  infoText: {
+    fontSize: 16
   }
-
-  return Math.floor(n * 100) / 100;
-};
+});

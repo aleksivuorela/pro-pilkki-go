@@ -100,21 +100,13 @@ export default class MapScreen extends React.Component {
               key={`${f.latitude}::${f.longitude}`}
               coordinate={f}
               onPress={() => {
-               if(geolib.getDistance({latitude: f.latitude, longitude: f.longitude},{latitude: this.state.player.latitude, longitude: this.state.player.longitude})<=50){
-
-                this.props.navigation.navigate('Game', { fish: f })
-                  }
-
-                }
-              }
-            >
+                if (geolib.getDistance({latitude: f.latitude, longitude: f.longitude},{latitude: this.state.player.latitude, longitude: this.state.player.longitude})<=150){
+                  this.props.navigation.navigate('Game', { fish: f })
+                }}
+              }>
             </MapView.Marker>
           )}
         </MapView>
-        <Button
-          title="Aloita pilkkiminen"
-          onPress={() => this.props.navigation.navigate('Game')}
-        />
       </View>
     );
   }

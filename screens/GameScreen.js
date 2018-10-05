@@ -2,6 +2,7 @@ import React from "react";
 import { Accelerometer, AR, DangerZone } from "expo";
 import { StyleSheet, Button, View, Text, Vibration } from "react-native";
 import ARScene from "../components/AR-scene";
+import Scene from "../components/scene";
 
 const { DeviceMotion } = DangerZone;
 
@@ -54,8 +55,6 @@ export default class GameScreen extends React.Component {
 
   registerMove = motionData => {
     let { x, y, z } = motionData;
-    // console.log(y); // Current pos
-    // console.log(this.state.accelerationData.y); // Previous pos
 
     if (z > 1.5 && z < 20) {
       this.setState(prevState => ({
@@ -75,12 +74,9 @@ export default class GameScreen extends React.Component {
     }
 
     if (this.state.succesfulStrokes === this.state.requiredStrokes) {
+      this.unsubscribe();
       this.props.navigation.navigate("FishingScreen");
     }
-
-    // Register move based on Y difference
-    // Vibrate after succesful move
-    // Vibration.vibrate(1000);
 
     // Update previous pos
     this.setState({ accelerationData: motionData });
@@ -91,17 +87,8 @@ export default class GameScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.sensor}>
-          <Text>Accelerometer:</Text>
-          <Text>
-            x: {round(x)} y: {round(y)} z: {round(z)}
-          </Text>
-        </View>
-        <Button
-          title="Takaisin kartalle"
-          onPress={() => this.props.navigation.navigate("Map")}
-        />
-        {AR.isAvailable() && <ARScene />}
+        <Text style={styles.infoText}>Pilki liikuttamalla puhelinta ylös alas</Text>
+        <Scene />
       </View>
     );
   }
@@ -116,13 +103,8 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 15,
     paddingHorizontal: 10
+  },
+  infoText: {
+    fontSize: 16
   }
 });
-
-const round = n => {
-  if (!n) {
-    return 0;
-  }
-
-  return Math.floor(n * 100) / 100;
-};
