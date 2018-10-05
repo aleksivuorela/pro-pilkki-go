@@ -2,6 +2,8 @@ import React from 'react';
 import {MapView, Permissions, Location} from 'expo';
 import {StyleSheet, Button, View, Text} from 'react-native';
 import generateRandomFish from '../utils/randomFish';
+import mapStyle from '../mapStyle';
+import geolib from 'geolib'
 
 const latitudeDelta = 0.0100;
 const longitudeDelta = 0.0080;
@@ -82,6 +84,10 @@ export default class MapScreen extends React.Component {
           showsTraffic={false}
           showsIndoors={false}
           showsPointsOfInterest={false}
+          zoomEnabled={false}
+          zoomControlEnabled={false}
+          customMapStyle={mapStyle}
+          provider={MapView.PROVIDER_GOOGLE}
         >
           <MapView.Marker
             key={'player'}
@@ -91,11 +97,17 @@ export default class MapScreen extends React.Component {
 
           {this.state.fish.map(f =>
             <MapView.Marker
+              image={require('../assets/sprites/pokeball.png')}
               key={`${f.latitude}::${f.longitude}`}
               coordinate={f}
               onPress={() => {
+               if(geolib.getDistance({latitude: f.latitude, longitude: f.longitude},{latitude: this.state.player.latitude, longitude: this.state.player.longitude})<=50){
+
                 this.props.navigation.navigate('Game', { fish: f })
-              }}
+                  }
+
+                }
+              }
             >
             </MapView.Marker>
           )}
