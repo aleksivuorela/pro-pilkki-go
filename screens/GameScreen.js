@@ -1,6 +1,7 @@
 import React from 'react';
-import {Accelerometer} from 'expo';
+import {Accelerometer, AR} from 'expo';
 import {StyleSheet, Button, View, Text, Vibration} from 'react-native';
+import ARScene from '../components/AR-scene';
 
 export default class GameScreen extends React.Component {
   state = {
@@ -56,6 +57,7 @@ export default class GameScreen extends React.Component {
           title="Takaisin kartalle"
           onPress={() => this.props.navigation.navigate('Map')}
         />
+        {AR.isAvailable() && <ARScene />}
       </View>
     );
   }
