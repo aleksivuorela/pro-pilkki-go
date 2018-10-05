@@ -6,7 +6,10 @@
 yarn global add expo-cli
 yarn install
 expo start
+Install Expo on your mobile phone and scan the QR Code
 ````
+
+
 
 ### Links
 

@@ -38,3 +38,6 @@ android/keystores/debug.keystore
 # Custom
 yarn-error.log
 .vscode/
+
+# Expo
+.expo
