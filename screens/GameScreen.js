@@ -1,5 +1,5 @@
 import React from 'react';
-import {Constants, Accelerometer} from 'expo';
+import {Accelerometer} from 'expo';
 import {StyleSheet, Button, View, Text, Vibration} from 'react-native';
 
 export default class GameScreen extends React.Component {
@@ -64,8 +64,7 @@ export default class GameScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    paddingTop: Constants.statusBarHeight
+    backgroundColor: '#fff'
   },
   sensor: {
     marginTop: 15,

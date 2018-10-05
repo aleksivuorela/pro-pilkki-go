@@ -1,5 +1,5 @@
 import React from 'react';
-import {Constants, MapView} from 'expo';
+import {MapView} from 'expo';
 import {StyleSheet, Button, View, Text} from 'react-native';
 
 export default class MapScreen extends React.Component {
@@ -27,7 +27,6 @@ export default class MapScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    paddingTop: Constants.statusBarHeight
+    backgroundColor: '#fff'
   },
 });
