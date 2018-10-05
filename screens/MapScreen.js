@@ -95,7 +95,7 @@ export default class MapScreen extends React.Component {
           >
             <Image
               source={require('../assets/sprites/player-icefisher.png')}
-              style={{width: 60, height: 60}}
+              style={{width: 80, height: 80}}
             />
           </MapView.Marker>
 
