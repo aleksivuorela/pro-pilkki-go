@@ -2,6 +2,7 @@ import React from 'react';
 import {Accelerometer, AR} from 'expo';
 import {StyleSheet, Button, View, Text, Vibration} from 'react-native';
 import ARScene from '../components/AR-scene';
+import Scene from '../components/scene';
 
 export default class GameScreen extends React.Component {
   state = {
@@ -33,8 +34,10 @@ export default class GameScreen extends React.Component {
 
   registerMove = accelerometerData => {
     let { x, y, z } = accelerometerData;
-    console.log(y); // Current pos
-    console.log(this.state.accelerometerData.y); // Previous pos
+
+    const diff = this.state.accelerometerData.y - y;
+    if (diff > 0.3) {
+    }
 
     // Register move based on Y difference
     // Vibrate after succesful move
@@ -57,7 +60,7 @@ export default class GameScreen extends React.Component {
           title="Takaisin kartalle"
           onPress={() => this.props.navigation.navigate('Map')}
         />
-        {AR.isAvailable() && <ARScene />}
+        <Scene accelerometerData={this.state.accelerometerData} />
       </View>
     );
   }

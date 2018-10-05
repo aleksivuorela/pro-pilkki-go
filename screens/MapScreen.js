@@ -1,9 +1,11 @@
 import React from 'react';
 import {MapView, Permissions, Location} from 'expo';
 import {StyleSheet, Button, View, Text} from 'react-native';
+import generateRandomFish from '../utils/randomFish';
 
-const latitudeDelta = 0.0100
-const longitudeDelta = 0.0080
+const latitudeDelta = 0.0100;
+const longitudeDelta = 0.0080;
+const INTERVAL = 4000;
 
 export default class MapScreen extends React.Component {
   constructor(props) {
@@ -15,14 +17,36 @@ export default class MapScreen extends React.Component {
         longitude: 0,
         latitudeDelta,
         longitudeDelta,
-      }
+      },
+      fish: []
     };
 
     this.locationWatcher = null;
+    this.spawnInterval = null;
+    this.spawnFish = this.spawnFish.bind(this);
   }
 
   componentWillMount() {
     this.getLocationAsync();
+  }
+
+  componentWillUnmount() {
+    this.locationWatcher && this.locationWatcher.remove()
+    this.spawnInterval && clearInterval(this.spawnInterval)
+  }
+
+  spawnFish() {
+    const location = this.state.player;
+
+    let newFish = generateRandomFish(3, location);
+
+    if (this.state.fish.length) {
+      newFish = newFish.concat(this.state.fish.slice(0, 3));
+    }
+
+    this.setState({
+      fish: newFish
+    });
   }
 
   getLocationAsync = async () => {
@@ -41,6 +65,8 @@ export default class MapScreen extends React.Component {
           }
         })
       })
+      this.spawnInterval = setInterval(this.spawnFish, INTERVAL);
+
     } else {
       console.warn('PERMISSION DENIED');
     }
@@ -62,6 +88,17 @@ export default class MapScreen extends React.Component {
             image={require('../assets/sprites/player.png')}
             coordinate={this.state.player}
           />
+
+          {this.state.fish.map(f =>
+            <MapView.Marker
+              key={`${f.latitude}::${f.longitude}`}
+              coordinate={f}
+              onPress={() => {
+                this.props.navigation.navigate('Game', { fish: f })
+              }}
+            >
+            </MapView.Marker>
+          )}
         </MapView>
         <Button
           title="Aloita pilkkiminen"

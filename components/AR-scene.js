@@ -1,9 +1,10 @@
 import React from 'react';
+import {StyleSheet, Button, View, Text} from 'react-native';
 import {AR} from 'expo';
 import ExpoTHREE, { AR as ThreeAR, THREE } from 'expo-three';
 import {View as GraphicsView} from 'expo-graphics';
 
-export default class Scene extends React.Component {
+export default class ARScene extends React.Component {
   componentDidMount() {
     THREE.suppressExpoWarnings();
   }
