@@ -91,12 +91,13 @@ export default class MapScreen extends React.Component {
         >
           <MapView.Marker
             key={'player'}
-            image={require('../assets/sprites/player.png')}
+            image={require('../assets/sprites/player-icefisher.png')}
             coordinate={this.state.player}
           />
 
           {this.state.fish.map(f =>
             <MapView.Marker
+              image={require('../assets/sprites/pokeball.png')}
               key={`${f.latitude}::${f.longitude}`}
               coordinate={f}
               onPress={() => {
