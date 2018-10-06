@@ -57,7 +57,12 @@ export default class GameScreen extends React.Component {
         this.setState({ count: 0 });
 
       if (this.state.count == 4) {
-        const fishGot = true; // Boolean(Math.floor(Math.random() * 2));
+        const fishGot = Boolean(Math.floor(Math.random() * 2));
+        const fish = this.props.navigation.getParam("fish").type;
+        const subtext = fishGot
+          ? fish + " - paino: " + this.getRandomWeight(fish)
+          : "";
+
         this.setState({ movementDetected: true, fishGot });
         const alertText = fishGot ? "Sait kalan!" : "Kala pääsi karkuun!";
         Vibration.vibrate(200);
@@ -75,7 +80,7 @@ export default class GameScreen extends React.Component {
           this.playDefeatSound();
         }
         setTimeout(() => {
-          Alert.alert(alertText, "", [
+          Alert.alert(alertText, subtext, [
             {
               text: "Takaisin kartalle",
               onPress: () => this.props.navigation.navigate("Map")
@@ -94,7 +99,7 @@ export default class GameScreen extends React.Component {
     const soundObject = new Expo.Audio.Sound();
     const fishType = this.props.navigation.getParam("fish").type;
     try {
-      if (fishType === "siika") {
+      if (fishType === "Siika") {
         await soundObject.loadAsync(
           require("../assets/audio/kahenkilonsiika.m4a")
         );
@@ -114,7 +119,14 @@ export default class GameScreen extends React.Component {
     } catch (error) {}
   };
 
+  getRandomWeight = fishType => {
+    if (fishType === "Siika") return "2 kg";
+    return Math.floor(Math.random() * 500) + 100 + " grammaa";
+  };
+
   render() {
+    const fish = this.props.navigation.getParam("fish");
+
     return (
       <View style={styles.container}>
         {!this.state.movementDetected ? (
@@ -154,8 +166,11 @@ const styles = StyleSheet.create({
     zIndex: 20
   },
   infoText: {
-    fontSize: 26,
-    textAlign: "center",
-    color: "blue"
+    fontSize: 22,
+    fontFamily: "pokemon"
+  },
+  victoryScreen: {
+    flex: 1,
+    alignItems: "center"
   }
 });

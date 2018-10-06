@@ -4,9 +4,9 @@ import { generateRandomPoint } from './randomGeo'
 const RADIUS = 300; // meters
 
 const fishImages = {
-  1: require('../assets/sprites/fishes/siika/siika-lepaa.png'),
+  1: require('../assets/sprites/fishes/siika/siika-up-1.png'),
   2: require('../assets/sprites/fishes/ahven/ahven-up-1.png'),
-  3: require('../assets/sprites/fishes/siika/siika-up-1.png'),
+  3: require('../assets/sprites/fishes/siika/siika-up-2.png'),
   4: require('../assets/sprites/fishes/ahven/ahven-up-2.png'),
 };
 
@@ -18,10 +18,10 @@ const fishLoops = {
 };
 
 const fishTypes = {
-  1: 'siika',
-  2: 'ahven',
-  3: 'siika',
-  4: 'ahven'
+  1: 'Siika',
+  2: 'Ahven',
+  3: 'Siika',
+  4: 'Ahven'
 }
 
 export default function createFish(count, location) {

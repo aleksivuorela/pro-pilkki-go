@@ -1,11 +1,10 @@
 import React from "react";
 import { StyleSheet, Button, View, Text, Image, Animated } from "react-native";
+import backpack from "../components/backpack";
 
 export default class Scene extends React.Component {
   render() {
     const { fishReady, animateRod } = this.props;
-
-    console.log(fishReady);
     return (
       <View style={styles.container}>
         <Image

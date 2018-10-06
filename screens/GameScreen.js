@@ -66,7 +66,6 @@ export default class GameScreen extends React.Component {
 
     if (this.state.count > 1) {
       Vibration.vibrate(50);
-      console.log("success");
       this.setState({
         count: 0,
         succesfulStrokes: this.state.succesfulStrokes + 1
@@ -113,13 +112,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   infoText: {
-    fontSize: 26,
-    position: "absolute",
-    textAlign: "center",
-    color: "blue",
-    top: 20,
-    left: 0,
-    right: 0,
-    zIndex: 20
+    fontSize: 14,
+    fontFamily: "pokemon",
+    padding: 20
   }
 });
