@@ -32,7 +32,7 @@ export default function createFish(count, location) {
   let random = 0;
 
   for (let i=0; i<count; i++) {
-    random = getRandomInt(1, 5);
+    random = getRandomInt(1, 6);
     fish.push(Object.assign({
       image: fishImages[random],
       loop: fishLoops[random],
