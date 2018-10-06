@@ -1,6 +1,6 @@
 import React from 'react';
-import {StyleSheet, Button, View, Text, Vibration, Alert} from 'react-native';
-import { Constants, DangerZone } from 'expo';
+import {StyleSheet, Button, View, Text, Vibration, Alert, Image} from 'react-native';
+import { Constants, DangerZone, platform } from 'expo';
 import Scene from '../components/scene';
 
 const { DeviceMotion } = DangerZone;
@@ -63,7 +63,8 @@ export default class GameScreen extends React.Component {
           <Text style={styles.infoText}>Kala kiinni!</Text>
           <Text style={styles.infoText}>Nosta puhelinta napataksasi kalan!</Text>
         </View> : null }
-        <Scene />
+        { this.state.fishGot
+        ? <Image source={require(`../assets/sprites/fishes/ahven/ahven-loop.gif`)} style={styles.backgroundImage} /> : null }
       </View>
     );
   }
@@ -72,9 +73,8 @@ export default class GameScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
   },
   infoText: {
-    fontSize: 16
+    fontSize: 30
   }
 });
