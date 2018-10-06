@@ -18,10 +18,10 @@ const fishLoops = {
 };
 
 const fishTypes = {
-  1: 'siika',
-  2: 'ahven',
-  3: 'siika',
-  4: 'ahven'
+  1: 'Siika',
+  2: 'Ahven',
+  3: 'Siika',
+  4: 'Ahven'
 }
 
 export default function createFish(count, location) {

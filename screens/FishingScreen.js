@@ -49,10 +49,10 @@ export default class GameScreen extends React.Component {
         this.setState({movementDetected: true, fishGot});
 
         const fishType = this.props.navigation.getParam('fish').type;
-        const weight = this.getRandomWeight();
+        const weight = this.getRandomWeight(fishType);
 
         const alertText = fishGot ? 'Sait kalan!' : 'Kala pääsi karkuun!';
-        const subText = fishGot ? (fishType + ' / Paino: ' + weight + ' grammaa') : '';
+        const subText = fishGot ? (fishType + ' / Paino: ' + weight) : '';
 
         Vibration.vibrate(200);
         if (fishGot) {
@@ -77,7 +77,7 @@ export default class GameScreen extends React.Component {
     const soundObject = new Expo.Audio.Sound();
     const fishType = this.props.navigation.getParam('fish').type;
     try {
-      if (fishType === 'siika') {
+      if (fishType === 'Siika') {
         await soundObject.loadAsync(require('../assets/audio/kahenkilonsiika.m4a'));
         await soundObject.playAsync();
       } else {
@@ -97,8 +97,9 @@ export default class GameScreen extends React.Component {
     }
   };
 
-  getRandomWeight = () => {
-    return Math.floor(Math.random() * 500) + 100;
+  getRandomWeight = fishType => {
+    if (fishType === 'Siika') return '2 kg';
+    return Math.floor(Math.random() * 500) + 100 + ' grammaa';
   }
 
   render() {
