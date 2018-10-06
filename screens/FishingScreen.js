@@ -49,6 +49,9 @@ export default class GameScreen extends React.Component {
         this.setState({movementDetected: true, fishGot});
         const alertText = fishGot ? 'Sait kalan!' : 'Kala pääsi karkuun!';
         Vibration.vibrate(200);
+        if (fishGot) {
+          this.playVictorySound();
+        }
         Alert.alert(
           alertText, '',
           [{text: 'Takaisin kartalle', onPress: () => this.props.navigation.navigate('Map')}]
@@ -58,6 +61,15 @@ export default class GameScreen extends React.Component {
       if (!this.state.movementDetected) {
         Vibration.vibrate();
       }
+    }
+  };
+
+  playVictorySound = async () => {
+    const soundObject = new Expo.Audio.Sound();
+    try {
+      await soundObject.loadAsync(require('../assets/audio/kahenkilonsiika.m4a'));
+      await soundObject.playAsync();
+    } catch (error) {
     }
   };
 
