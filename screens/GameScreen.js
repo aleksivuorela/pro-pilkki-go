@@ -75,11 +75,21 @@ export default class GameScreen extends React.Component {
 
     if (this.state.succesfulStrokes === this.state.requiredStrokes) {
       this.unsubscribe();
+      this.playAudio();
       this.props.navigation.navigate("FishingScreen", { fish: this.props.navigation.getParam('fish') });
     }
 
     // Update previous pos
     this.setState({ accelerationData: motionData });
+  };
+
+  playAudio = async () => {
+    const soundObject = new Expo.Audio.Sound();
+    try {
+      await soundObject.loadAsync(require('../assets/audio/otasiikapois.m4a'));
+      await soundObject.playAsync();
+    } catch (error) {
+    }
   };
 
   render() {
