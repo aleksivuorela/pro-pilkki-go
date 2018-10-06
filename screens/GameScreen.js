@@ -93,7 +93,7 @@ export default class GameScreen extends React.Component {
   };
 
   render() {
-    let { x, y, z } = this.state.accelerationData;
+    // let { x, y, z } = this.state.accelerationData;
 
     return (
       <View style={styles.container}>
@@ -112,7 +112,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   infoText: {
-    fontSize: 14,
+    position: "absolute",
+    zIndex: 20,
+    top: 0,
+    left: 0,
+    right: 0,
+    fontSize: 18,
+    textAlign: "center",
     fontFamily: "pokemon",
     padding: 20
   }
