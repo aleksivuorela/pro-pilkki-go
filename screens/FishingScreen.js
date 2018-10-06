@@ -68,9 +68,15 @@ export default class GameScreen extends React.Component {
 
   playVictorySound = async () => {
     const soundObject = new Expo.Audio.Sound();
+    const fishType = this.props.navigation.getParam('fish').type;
     try {
-      await soundObject.loadAsync(require('../assets/audio/kahenkilonsiika.m4a'));
-      await soundObject.playAsync();
+      if (fishType === 'siika') {
+        await soundObject.loadAsync(require('../assets/audio/kahenkilonsiika.m4a'));
+        await soundObject.playAsync();
+      } else {
+        await soundObject.loadAsync(require('../assets/audio/motko.m4a'));
+        await soundObject.playAsync();
+      }
     } catch (error) {
     }
   };
