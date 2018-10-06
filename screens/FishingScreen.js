@@ -58,9 +58,9 @@ export default class GameScreen extends React.Component {
 
       if (this.state.count == 4) {
         const fishGot = Boolean(Math.floor(Math.random() * 2));
-        const fish = this.props.navigation.getParam("fish").type;
+        const fish = this.props.navigation.getParam("fish");
         const subtext = fishGot
-          ? fish + " - paino: " + this.getRandomWeight(fish)
+          ? fish.type + " - paino: " + this.getRandomWeight(fish.type)
           : "";
 
         this.setState({ movementDetected: true, fishGot });
@@ -76,6 +76,7 @@ export default class GameScreen extends React.Component {
             toValue: 350,
             duration: 1000
           }).start();
+          backpack.catchedFish.push(fish);
         } else {
           this.playDefeatSound();
         }

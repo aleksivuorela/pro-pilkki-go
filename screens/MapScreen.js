@@ -1,9 +1,11 @@
 import React from 'react';
 import {MapView, Permissions, Location} from 'expo';
-import {StyleSheet, Button, View, Text, Image} from 'react-native';
+import {StyleSheet, Button, View, Text, Image, TouchableOpacity} from 'react-native';
 import generateRandomFish from '../utils/randomFish';
 import mapStyle from '../mapStyle';
 import geolib from 'geolib'
+import { Overlay } from 'react-native-maps';
+import {getCatchedFish} from '../components/backpack';
 
 const latitudeDelta = 0.0100;
 const longitudeDelta = 0.0080;
@@ -21,6 +23,7 @@ export default class MapScreen extends React.Component {
         longitudeDelta,
       },
       fish: [],
+      backPackOpen: false
     };
 
     this.locationWatcher = null;
@@ -106,6 +109,7 @@ export default class MapScreen extends React.Component {
   };
 
   render() {
+    console.log(getCatchedFish());
     return (
       <View style={styles.container}>
         <MapView
@@ -147,6 +151,71 @@ export default class MapScreen extends React.Component {
           }
           )}
         </MapView>
+        <TouchableOpacity
+        style={styles.backPack}
+        onPress={() => {this.setState({backPackOpen: !this.state.backPackOpen})}}>
+          <Image
+              source={require('../assets/sprites/lidl-bag.png')}
+              style={{width: 80, height: 80}}
+            />
+        </TouchableOpacity>
+        { this.state.backPackOpen
+        ? <View style={styles.inventory}>
+            <Text style={styles.inventoryText}>
+                Sinun kalasi
+            </Text>
+            <Text> </Text>
+            <Text> </Text>
+            {
+              Object.keys(getCatchedFish()).length
+              ? <View>
+              {
+                'Ahven' in getCatchedFish()
+                ? <View style={styles.inventoryView}><Image
+                    source={require('../assets/sprites/fishes/ahven/ahven-lepaa.png')}
+                    style={{
+                      resizeMode: 'stretch',
+                      width: 250,
+                      height: 100
+                    }}
+                  />
+                  <Text style={styles.inventoryText2}>X {getCatchedFish().Ahven}</Text>
+                  </View>
+                : null
+              }
+              {
+                'Siika' in getCatchedFish()
+                ? <View style={styles.inventoryView}><Image
+                    source={require('../assets/sprites/fishes/siika/siika-lepaa.png')}
+                    style={{
+                      resizeMode: 'stretch',
+                      width: 250,
+                      height: 100
+                    }}
+                  />
+                  <Text style={styles.inventoryText2}>X {getCatchedFish().Siika}</Text>
+                  </View>
+                : null
+              }
+              {
+                'Bulbfish' in getCatchedFish()
+                ? <View style={styles.inventoryView}><Image
+                    source={require('../assets/sprites/fishes/bulbfish/bulbfish-1.png')}
+                    style={{
+                      resizeMode: 'stretch',
+                      width: 250,
+                      height: 250
+                    }}
+                  />
+                  <Text style={styles.inventoryText2}>X {getCatchedFish().Siika}</Text>
+                  </View>
+                : null
+              }
+              </View>
+              : <View><Text style={styles.inventoryText2}>Sinulla ei ole kaloja</Text></View>
+            }
+        </View>
+        : null }
       </View>
     );
   }
@@ -164,4 +233,33 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
   },
+  backPack: {
+    position: 'absolute',
+    top: 0,
+    right: 0
+  },
+  inventory: {
+    position: 'absolute',
+    top: 100,
+    left: 0,
+    backgroundColor: '#fff',
+    width: 500,
+    height: 400,
+  },
+  inventoryText: {
+    paddingTop: 30,
+    paddingLeft: 80,
+    fontFamily: "pokemon",
+    fontSize: 22,
+  },
+  inventoryText2: {
+    paddingTop: 10,
+    paddingLeft: 20,
+    fontFamily: "pokemon",
+    fontSize: 15,
+  },
+  inventoryView: {
+    paddingLeft: 30,
+    paddingTop: 30
+  }
 });
