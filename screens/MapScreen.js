@@ -21,6 +21,7 @@ export default class MapScreen extends React.Component {
         longitudeDelta,
       },
       fish: []
+      //sound: New Expo.Audio.Sound
     };
 
     this.locationWatcher = null;
