@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Button, View, Text, Image, Animated} from 'react-native';
+import backpack from '../components/backpack';
 
 export default class Scene extends React.Component {
   render() {
@@ -14,6 +15,12 @@ export default class Scene extends React.Component {
             right: 0,
           }}
         />
+        {backpack.catchedFish.map((f, index) =>
+          <Image
+            source={f.image}
+            style={{position: 'absolute', top: 0, right: 0}}
+          />
+        )}
       </View>
     );
   }

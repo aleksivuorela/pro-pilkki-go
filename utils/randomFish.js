@@ -4,9 +4,9 @@ import { generateRandomPoint } from './randomGeo'
 const RADIUS = 300; // meters
 
 const fishImages = {
-  1: require('../assets/sprites/fishes/siika/siika-lepaa.png'),
+  1: require('../assets/sprites/fishes/siika/siika-up-1.png'),
   2: require('../assets/sprites/fishes/ahven/ahven-up-1.png'),
-  3: require('../assets/sprites/fishes/siika/siika-up-1.png'),
+  3: require('../assets/sprites/fishes/siika/siika-up-2.png'),
   4: require('../assets/sprites/fishes/ahven/ahven-up-2.png'),
 };
 

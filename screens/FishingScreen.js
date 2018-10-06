@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Button, View, Text, Vibration, Alert, Image} from 'react-native';
 import { Constants, DangerZone, platform } from 'expo';
 import Scene from '../components/scene';
+import backpack from '../components/backpack';
 
 const { DeviceMotion } = DangerZone;
 
@@ -48,15 +49,16 @@ export default class GameScreen extends React.Component {
         const fishGot = Boolean(Math.floor(Math.random() * 2));
         this.setState({movementDetected: true, fishGot});
 
-        const fishType = this.props.navigation.getParam('fish').type;
-        const weight = this.getRandomWeight(fishType);
+        const fish = this.props.navigation.getParam('fish');
+        const weight = this.getRandomWeight(fish.type);
 
         const alertText = fishGot ? 'Sait kalan!' : 'Kala pääsi karkuun!';
-        const subText = fishGot ? (fishType + ' / Paino: ' + weight) : '';
+        const subText = fishGot ? (fish.type + ' / Paino: ' + weight) : '';
 
         Vibration.vibrate(200);
         if (fishGot) {
           this.playVictorySound();
+          backpack.catchedFish.push(fish);
         } else {
           this.playDefeatSound();
         }
