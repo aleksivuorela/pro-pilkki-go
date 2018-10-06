@@ -52,6 +52,8 @@ export default class GameScreen extends React.Component {
         const weight = this.getRandomWeight();
 
         const alertText = fishGot ? 'Sait kalan!' : 'Kala pääsi karkuun!';
+        const subText = fishgot ?  (fishType + ' / Paino: ' + weight + ' grammaa') : '';
+
         Vibration.vibrate(200);
         if (fishGot) {
           this.playVictorySound();
@@ -60,7 +62,7 @@ export default class GameScreen extends React.Component {
         }
         Alert.alert(
           alertText,
-          fishgot ? (fishType + ' / Paino: ' + weight + ' grammaa') : '',
+          subText,
           [{text: 'Takaisin kartalle', onPress: () => this.props.navigation.navigate('Map')}]
         );
       }
