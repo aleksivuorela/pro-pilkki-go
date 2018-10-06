@@ -8,7 +8,6 @@ import geolib from 'geolib'
 const latitudeDelta = 0.0100;
 const longitudeDelta = 0.0080;
 const INTERVAL = 4000;
-var bgAudio = true;
 
 export default class MapScreen extends React.Component {
   constructor(props) {

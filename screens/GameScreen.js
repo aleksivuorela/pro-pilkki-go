@@ -66,7 +66,6 @@ export default class GameScreen extends React.Component {
 
     if (this.state.count > 1) {
       Vibration.vibrate(50);
-      console.log("success");
       this.setState({
         count: 0,
         succesfulStrokes: this.state.succesfulStrokes + 1
