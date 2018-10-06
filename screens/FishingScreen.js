@@ -18,6 +18,7 @@ export default class GameScreen extends React.Component {
   state = {
     count: 0,
     fishGot: false,
+    end: false,
     movementDetected: false,
     pullAnimationFish: new Animated.Value(100),
     pullAnimationRod: new Animated.Value(-40)
@@ -63,7 +64,7 @@ export default class GameScreen extends React.Component {
           ? fish.type + " - paino: " + this.getRandomWeight(fish.type)
           : "";
 
-        this.setState({ movementDetected: true, fishGot });
+        this.setState({ movementDetected: true, fishGot, end: true });
         const alertText = fishGot ? "Sait kalan!" : "Kala pääsi karkuun!";
         Vibration.vibrate(200);
         if (fishGot) {
@@ -80,14 +81,6 @@ export default class GameScreen extends React.Component {
         } else {
           this.playDefeatSound();
         }
-        setTimeout(() => {
-          Alert.alert(alertText, subtext, [
-            {
-              text: "Takaisin kartalle",
-              onPress: () => this.props.navigation.navigate("Map")
-            }
-          ]);
-        }, fishGot ? 2000 : 0);
       }
 
       if (!this.state.movementDetected) {
@@ -128,6 +121,7 @@ export default class GameScreen extends React.Component {
 
   render() {
     const fish = this.props.navigation.getParam("fish");
+    const endText = this.state.fishGot ? "Sait kalan!" : "Kala pääsi karkuun!";
 
     return (
       <View style={styles.container}>
@@ -150,6 +144,13 @@ export default class GameScreen extends React.Component {
             }}
           />
         ) : null}
+        {this.state.end ? <View style={styles.endText}>
+          <Text style={styles.infoText}>{endText}</Text>
+          <Button
+            onPress={_ => this.props.navigation.navigate("Map")}
+            title="Takaisin kartalle"
+            color="#6f94ff" />
+        </View> : null}
         <Scene fishReady={true} animateRod={this.state.pullAnimationRod} />
       </View>
     );
@@ -171,6 +172,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 18,
     fontFamily: "pokemon"
+  },
+  endText: {
+    margin: 20,
   },
   victoryScreen: {
     flex: 1,
