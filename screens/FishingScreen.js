@@ -131,7 +131,6 @@ const styles = StyleSheet.create({
   },
   victoryScreen: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: 'center'
   }
 });
