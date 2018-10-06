@@ -47,6 +47,10 @@ export default class GameScreen extends React.Component {
       if (this.state.count == 3) {
         const fishGot = Boolean(Math.floor(Math.random() * 2));
         this.setState({movementDetected: true, fishGot});
+
+        const fishType = this.props.navigation.getParam('fish').type;
+        const weight = this.getRandomWeight();
+
         const alertText = fishGot ? 'Sait kalan!' : 'Kala pääsi karkuun!';
         Vibration.vibrate(200);
         if (fishGot) {
@@ -55,7 +59,8 @@ export default class GameScreen extends React.Component {
           this.playDefeatSound();
         }
         Alert.alert(
-          alertText, '',
+          alertText,
+          fishgot ? (fishType + ' / Paino: ' + weight + ' grammaa') : '',
           [{text: 'Takaisin kartalle', onPress: () => this.props.navigation.navigate('Map')}]
         );
       }
@@ -81,7 +86,7 @@ export default class GameScreen extends React.Component {
     }
   };
 
-  playDefeatSound  = async () => {
+  playDefeatSound = async () => {
     const soundObject = new Expo.Audio.Sound();
     try {
       await soundObject.loadAsync(require('../assets/audio/eivittu.m4a'));
@@ -90,8 +95,13 @@ export default class GameScreen extends React.Component {
     }
   };
 
+  getRandomWeight = () => {
+    return Math.floor(Math.random() * 500) + 100;
+  }
+
   render() {
-    console.log(this.props.navigation.getParam('fish'));
+    const fish = this.props.navigation.getParam('fish');
+
     return (
       <View style={styles.container}>
         { !this.state.movementDetected
@@ -100,7 +110,10 @@ export default class GameScreen extends React.Component {
           <Text style={styles.infoText}>Nosta puhelinta napataksasi kalan!</Text>
         </View> : null }
         { this.state.fishGot
-        ? <Image source={this.props.navigation.getParam('fish').loop} style={styles.backgroundImage} /> : null }
+        ? <View style={styles.victoryScreen}>
+            <Image source={fish.loop} style={styles.backgroundImage} />
+          </View>
+        : null }
       </View>
     );
   }
@@ -112,5 +125,10 @@ const styles = StyleSheet.create({
   },
   infoText: {
     fontSize: 30
+  },
+  victoryScreen: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
