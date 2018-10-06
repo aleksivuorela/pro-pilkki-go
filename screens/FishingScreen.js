@@ -51,6 +51,8 @@ export default class GameScreen extends React.Component {
         Vibration.vibrate(200);
         if (fishGot) {
           this.playVictorySound();
+        } else {
+          this.playDefeatSound();
         }
         Alert.alert(
           alertText, '',
@@ -68,6 +70,15 @@ export default class GameScreen extends React.Component {
     const soundObject = new Expo.Audio.Sound();
     try {
       await soundObject.loadAsync(require('../assets/audio/kahenkilonsiika.m4a'));
+      await soundObject.playAsync();
+    } catch (error) {
+    }
+  };
+
+  playDefeatSound  = async () => {
+    const soundObject = new Expo.Audio.Sound();
+    try {
+      await soundObject.loadAsync(require('../assets/audio/eivittu.m4a'));
       await soundObject.playAsync();
     } catch (error) {
     }
