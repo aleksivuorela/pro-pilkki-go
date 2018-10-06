@@ -100,8 +100,10 @@ export default class MapScreen extends React.Component {
           </MapView.Marker>
 
           {this.state.fish.map(f =>
+          {
+            return (
             <MapView.Marker
-              image={require('../assets/sprites/fishes/siika/siika-lepaa.png')}
+              image={f.image}
               key={`${f.latitude}::${f.longitude}`}
               coordinate={f}
               onPress={() => {
@@ -109,7 +111,8 @@ export default class MapScreen extends React.Component {
                   this.props.navigation.navigate('Game', { fish: f })
                 }}
               }>
-            </MapView.Marker>
+            </MapView.Marker>);
+          }
           )}
         </MapView>
       </View>

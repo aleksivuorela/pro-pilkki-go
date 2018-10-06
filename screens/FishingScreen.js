@@ -40,22 +40,29 @@ export default class GameScreen extends React.Component {
   }
 
   registerMove = acceleration => {
-    if (acceleration > 2) this.setState({count: this.state.count + 1});
-    if (acceleration < 2 && this.state.count !== 0) this.setState({count: 0});
+    if (!this.state.movementDetected) {
+      if (acceleration > 2) this.setState({count: this.state.count + 1});
+      if (acceleration < 2 && this.state.count !== 0) this.setState({count: 0});
 
-    if (this.state.count == 3) {
-      const fishGot = Boolean(Math.floor(Math.random() * 2));
-      this.setState({movementDetected: true, fishGot});
-      const alertText = fishGot ? 'Sait kalan!' : 'Kala pääsi karkuun!';
-      Vibration.vibrate(200);
-      Alert.alert(
-        alertText, '',
-        [{text: 'Takaisin kartalle', onPress: () => this.props.navigation.navigate('Map')}]
-      );
+      if (this.state.count == 3) {
+        const fishGot = Boolean(Math.floor(Math.random() * 2));
+        this.setState({movementDetected: true, fishGot});
+        const alertText = fishGot ? 'Sait kalan!' : 'Kala pääsi karkuun!';
+        Vibration.vibrate(200);
+        Alert.alert(
+          alertText, '',
+          [{text: 'Takaisin kartalle', onPress: () => this.props.navigation.navigate('Map')}]
+        );
+      }
+
+      if (!this.state.movementDetected) {
+        Vibration.vibrate();
+      }
     }
   };
 
   render() {
+    console.log(this.props.navigation.getParam('fish'));
     return (
       <View style={styles.container}>
         { !this.state.movementDetected
@@ -64,7 +71,7 @@ export default class GameScreen extends React.Component {
           <Text style={styles.infoText}>Nosta puhelinta napataksasi kalan!</Text>
         </View> : null }
         { this.state.fishGot
-        ? <Image source={require(`../assets/sprites/fishes/ahven/ahven-loop.gif`)} style={styles.backgroundImage} /> : null }
+        ? <Image source={this.props.navigation.getParam('fish').loop} style={styles.backgroundImage} /> : null }
       </View>
     );
   }

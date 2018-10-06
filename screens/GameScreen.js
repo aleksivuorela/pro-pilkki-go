@@ -75,7 +75,7 @@ export default class GameScreen extends React.Component {
 
     if (this.state.succesfulStrokes === this.state.requiredStrokes) {
       this.unsubscribe();
-      this.props.navigation.navigate("FishingScreen");
+      this.props.navigation.navigate("FishingScreen", { fish: this.props.navigation.getParam('fish') });
     }
 
     // Update previous pos

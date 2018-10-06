@@ -5,17 +5,27 @@ const RADIUS = 300; // meters
 
 const fishImages = {
   1: require('../assets/sprites/fishes/siika/siika-lepaa.png'),
-  2: require('../assets/sprites/fishes/siika/siika-lepaa.png'),
-  3: require('../assets/sprites/fishes/siika/siika-lepaa.png'),
-  4: require('../assets/sprites/fishes/siika/siika-lepaa.png'),
+  2: require('../assets/sprites/fishes/ahven/ahven-up-1.png'),
+  3: require('../assets/sprites/fishes/siika/siika-up-1.png'),
+  4: require('../assets/sprites/fishes/ahven/ahven-up-2.png'),
 };
+
+const fishLoops = {
+  1: require('../assets/sprites/fishes/siika/siika-loop.gif'),
+  2: require('../assets/sprites/fishes/ahven/ahven-loop.gif'),
+  3: require('../assets/sprites/fishes/siika/siika-loop.gif'),
+  4: require('../assets/sprites/fishes/ahven/ahven-loop.gif'),
+}
 
 export default function createFish(count, location) {
   let fish = [];
+  let random = 0;
 
   for (let i=0; i<count; i++) {
+    random = getRandomInt(1, 5);
     fish.push(Object.assign({
-      image: fishImages[getRandomInt(1, 5)]
+      image: fishImages[random],
+      loop: fishLoops[random]
     },
     generateRandomPoint(location, RADIUS)
     ));
