@@ -8,6 +8,7 @@ import geolib from 'geolib'
 const latitudeDelta = 0.0100;
 const longitudeDelta = 0.0080;
 const INTERVAL = 4000;
+var bgAudio = true; 
 
 export default class MapScreen extends React.Component {
   constructor(props) {
@@ -37,6 +38,15 @@ export default class MapScreen extends React.Component {
     }
   };
 
+  playIceSound = async () => {
+    const soundObject = new Expo.Audio.Sound();
+    try {
+      await soundObject.loadAsync(require('../assets/sounds/ice.m4a'));
+      await soundObject.playAsync();
+    } catch (error) {
+    }
+  };
+
   componentWillMount() {
     this.getLocationAsync();
   }
@@ -48,6 +58,7 @@ export default class MapScreen extends React.Component {
 
   spawnFish() {
     const location = this.state.player;
+
 
     let newFish = generateRandomFish(3, location);
     
@@ -78,6 +89,7 @@ export default class MapScreen extends React.Component {
         })
       })
       this.spawnInterval = setInterval(this.spawnFish, INTERVAL);
+      this.playIceSound();
 
     } else {
       console.warn('PERMISSION DENIED');
