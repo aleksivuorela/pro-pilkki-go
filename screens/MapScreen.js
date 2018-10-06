@@ -20,14 +20,22 @@ export default class MapScreen extends React.Component {
         latitudeDelta,
         longitudeDelta,
       },
-      fish: []
-      //sound: New Expo.Audio.Sound
+      fish: [],
     };
 
     this.locationWatcher = null;
     this.spawnInterval = null;
     this.spawnFish = this.spawnFish.bind(this);
   }
+
+  playBubbleSound = async () => {
+    const soundObject = new Expo.Audio.Sound();
+    try {
+      await soundObject.loadAsync(require('../assets/sounds/bubble.m4a'));
+      await soundObject.playAsync();
+    } catch (error) {
+    }
+  };
 
   componentWillMount() {
     this.getLocationAsync();
@@ -42,6 +50,7 @@ export default class MapScreen extends React.Component {
     const location = this.state.player;
 
     let newFish = generateRandomFish(3, location);
+    
 
     if (this.state.fish.length) {
       newFish = newFish.concat(this.state.fish.slice(0, 3));
@@ -110,6 +119,7 @@ export default class MapScreen extends React.Component {
               onPress={() => {
                 if (geolib.getDistance({latitude: f.latitude, longitude: f.longitude},{latitude: this.state.player.latitude, longitude: this.state.player.longitude})<=150){
                   this.props.navigation.navigate('Game', { fish: f })
+                  this.playBubbleSound();
                 }}
               }>
             </MapView.Marker>);
