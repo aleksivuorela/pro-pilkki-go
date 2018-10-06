@@ -110,7 +110,7 @@ export default class GameScreen extends React.Component {
     return (
       <View style={styles.container}>
         { !this.state.movementDetected
-        ? <View>
+        ? <View style={{flex: 1, justifyContent: 'center', padding: 20}}>
           <Text style={styles.infoText}>Kala kiinni!</Text>
           <Text style={styles.infoText}>Nosta puhelinta napataksasi kalan!</Text>
         </View> : null }
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   infoText: {
-    fontSize: 30,
+    fontSize: 22,
     fontFamily: 'pokemon'
   },
   victoryScreen: {

@@ -96,8 +96,8 @@ export default class GameScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Scene />
         <Text style={styles.infoText}>Pilki liikuttamalla puhelinta ylös alas</Text>
+        <Scene />
       </View>
     );
   }
@@ -111,6 +111,6 @@ const styles = StyleSheet.create({
   infoText: {
     fontSize: 14,
     fontFamily: 'pokemon',
-    padding: 20
+    padding: 20,
   }
 });

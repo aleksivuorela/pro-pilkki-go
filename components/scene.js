@@ -15,13 +15,6 @@ export default class Scene extends React.Component {
             right: 0,
           }}
         />
-        {backpack.catchedFish.map((f, index) =>
-          <Image
-            key={index}
-            source={f.image}
-            style={{position: 'absolute', top: 0, right: 0}}
-          />
-        )}
       </View>
     );
   }
