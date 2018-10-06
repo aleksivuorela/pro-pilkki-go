@@ -175,8 +175,8 @@ export default class MapScreen extends React.Component {
                     source={require('../assets/sprites/fishes/ahven/ahven-lepaa.png')}
                     style={{
                       resizeMode: 'stretch',
-                      width: 250,
-                      height: 100
+                      width: 100,
+                      height: 50
                     }}
                   />
                   <Text style={styles.inventoryText2}>X {getCatchedFish().Ahven}</Text>
@@ -189,8 +189,8 @@ export default class MapScreen extends React.Component {
                     source={require('../assets/sprites/fishes/siika/siika-lepaa.png')}
                     style={{
                       resizeMode: 'stretch',
-                      width: 250,
-                      height: 100
+                      width: 100,
+                      height: 50
                     }}
                   />
                   <Text style={styles.inventoryText2}>X {getCatchedFish().Siika}</Text>
@@ -203,11 +203,11 @@ export default class MapScreen extends React.Component {
                     source={require('../assets/sprites/fishes/bulbfish/bulbfish-1.png')}
                     style={{
                       resizeMode: 'stretch',
-                      width: 250,
-                      height: 250
+                      width: 50,
+                      height: 50
                     }}
                   />
-                  <Text style={styles.inventoryText2}>X {getCatchedFish().Siika}</Text>
+                  <Text style={styles.inventoryText2}>X {getCatchedFish().Bulbfish}</Text>
                   </View>
                 : null
               }
@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
   },
   inventoryText2: {
     paddingTop: 10,
-    paddingLeft: 20,
+    paddingLeft: 5,
     fontFamily: "pokemon",
     fontSize: 15,
   },
