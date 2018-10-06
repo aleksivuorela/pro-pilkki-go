@@ -15,6 +15,13 @@ const fishLoops = {
   2: require('../assets/sprites/fishes/ahven/ahven-loop.gif'),
   3: require('../assets/sprites/fishes/siika/siika-loop.gif'),
   4: require('../assets/sprites/fishes/ahven/ahven-loop.gif'),
+};
+
+const fishTypes = {
+  1: 'siika',
+  2: 'ahven',
+  3: 'siika',
+  4: 'ahven'
 }
 
 export default function createFish(count, location) {
@@ -25,7 +32,8 @@ export default function createFish(count, location) {
     random = getRandomInt(1, 5);
     fish.push(Object.assign({
       image: fishImages[random],
-      loop: fishLoops[random]
+      loop: fishLoops[random],
+      type: fishTypes[random]
     },
     generateRandomPoint(location, RADIUS)
     ));
