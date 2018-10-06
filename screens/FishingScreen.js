@@ -41,13 +41,19 @@ export default class GameScreen extends React.Component {
 
   registerMove = acceleration => {
     if (!this.state.movementDetected) {
-      if (acceleration > 2) this.setState({count: this.state.count + 1});
-      if (acceleration < 2 && this.state.count !== 0) this.setState({count: 0});
+      if (acceleration > 1) this.setState({count: this.state.count + 1});
+      if (acceleration < 1 && this.state.count !== 0) this.setState({count: 0});
 
-      if (this.state.count == 3) {
+      if (this.state.count == 4) {
         const fishGot = Boolean(Math.floor(Math.random() * 2));
         this.setState({movementDetected: true, fishGot});
+
+        const fishType = this.props.navigation.getParam('fish').type;
+        const weight = this.getRandomWeight();
+
         const alertText = fishGot ? 'Sait kalan!' : 'Kala pääsi karkuun!';
+        const subText = fishGot ? (fishType + ' / Paino: ' + weight + ' grammaa') : '';
+
         Vibration.vibrate(200);
         if (fishGot) {
           this.playVictorySound();
@@ -55,7 +61,8 @@ export default class GameScreen extends React.Component {
           this.playDefeatSound();
         }
         Alert.alert(
-          alertText, '',
+          alertText,
+          subText,
           [{text: 'Takaisin kartalle', onPress: () => this.props.navigation.navigate('Map')}]
         );
       }
@@ -68,14 +75,20 @@ export default class GameScreen extends React.Component {
 
   playVictorySound = async () => {
     const soundObject = new Expo.Audio.Sound();
+    const fishType = this.props.navigation.getParam('fish').type;
     try {
-      await soundObject.loadAsync(require('../assets/audio/kahenkilonsiika.m4a'));
-      await soundObject.playAsync();
+      if (fishType === 'siika') {
+        await soundObject.loadAsync(require('../assets/audio/kahenkilonsiika.m4a'));
+        await soundObject.playAsync();
+      } else {
+        await soundObject.loadAsync(require('../assets/audio/motko.m4a'));
+        await soundObject.playAsync();
+      }
     } catch (error) {
     }
   };
 
-  playDefeatSound  = async () => {
+  playDefeatSound = async () => {
     const soundObject = new Expo.Audio.Sound();
     try {
       await soundObject.loadAsync(require('../assets/audio/eivittu.m4a'));
@@ -84,8 +97,13 @@ export default class GameScreen extends React.Component {
     }
   };
 
+  getRandomWeight = () => {
+    return Math.floor(Math.random() * 500) + 100;
+  }
+
   render() {
-    console.log(this.props.navigation.getParam('fish'));
+    const fish = this.props.navigation.getParam('fish');
+
     return (
       <View style={styles.container}>
         { !this.state.movementDetected
@@ -94,7 +112,10 @@ export default class GameScreen extends React.Component {
           <Text style={styles.infoText}>Nosta puhelinta napataksasi kalan!</Text>
         </View> : null }
         { this.state.fishGot
-        ? <Image source={this.props.navigation.getParam('fish').loop} style={styles.backgroundImage} /> : null }
+        ? <View style={styles.victoryScreen}>
+            <Image source={fish.loop} style={styles.backgroundImage} />
+          </View>
+        : null }
       </View>
     );
   }
@@ -106,5 +127,10 @@ const styles = StyleSheet.create({
   },
   infoText: {
     fontSize: 30
+  },
+  victoryScreen: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
