@@ -8,7 +8,7 @@ const fishImages = {
   2: require('../assets/sprites/fishes/ahven/ahven-up-1.png'),
   3: require('../assets/sprites/fishes/siika/siika-up-2.png'),
   4: require('../assets/sprites/fishes/ahven/ahven-up-2.png'),
-  4: require('../assets/sprites/fishes/bulbfish/bulbfish-1.png')
+  5: require('../assets/sprites/fishes/bulbfish/bulbfish-1.png')
 };
 
 const fishLoops = {
@@ -32,7 +32,7 @@ export default function createFish(count, location) {
   let random = 0;
 
   for (let i=0; i<count; i++) {
-    random = getRandomInt(1, 5);
+    random = getRandomInt(1, 6);
     fish.push(Object.assign({
       image: fishImages[random],
       loop: fishLoops[random],
