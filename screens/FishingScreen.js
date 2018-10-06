@@ -129,7 +129,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   infoText: {
-    fontSize: 30
+    fontSize: 30,
+    fontFamily: 'pokemon'
   },
   victoryScreen: {
     flex: 1,
