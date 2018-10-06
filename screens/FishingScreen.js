@@ -121,6 +121,7 @@ export default class GameScreen extends React.Component {
 
   getRandomWeight = fishType => {
     if (fishType === "Siika") return "2 kg";
+    else if (fishType === "Bulbfish") return Math.floor(Math.random() * 10) + 2 + " kg";
     return Math.floor(Math.random() * 500) + 100 + " grammaa";
   };
 
