@@ -76,7 +76,9 @@ export default class GameScreen extends React.Component {
     if (this.state.succesfulStrokes === this.state.requiredStrokes) {
       this.unsubscribe();
       this.playAudio();
-      this.props.navigation.navigate("FishingScreen", { fish: this.props.navigation.getParam('fish') });
+      this.props.navigation.navigate("FishingScreen", {
+        fish: this.props.navigation.getParam("fish")
+      });
     }
 
     // Update previous pos
@@ -86,10 +88,9 @@ export default class GameScreen extends React.Component {
   playAudio = async () => {
     const soundObject = new Expo.Audio.Sound();
     try {
-      await soundObject.loadAsync(require('../assets/audio/otasiikapois.m4a'));
+      await soundObject.loadAsync(require("../assets/audio/otasiikapois.m4a"));
       await soundObject.playAsync();
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   render() {
@@ -97,7 +98,9 @@ export default class GameScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.infoText}>Pilki liikuttamalla puhelinta ylös alas</Text>
+        <Text style={styles.infoText}>
+          Pilki liikuttamalla puhelinta ylös alas
+        </Text>
         <Scene />
       </View>
     );
@@ -110,6 +113,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   infoText: {
-    fontSize: 16
+    fontSize: 26,
+    position: "absolute",
+    textAlign: "center",
+    color: "blue",
+    top: 20,
+    left: 0,
+    right: 0,
+    zIndex: 20
   }
 });
