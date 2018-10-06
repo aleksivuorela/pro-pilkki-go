@@ -19,7 +19,7 @@ export default class GameScreen extends React.Component {
     count: 0,
     fishGot: false,
     movementDetected: false,
-    pullAnimationFish: new Animated.Value(-350),
+    pullAnimationFish: new Animated.Value(100),
     pullAnimationRod: new Animated.Value(-40)
   };
 
@@ -69,7 +69,7 @@ export default class GameScreen extends React.Component {
         if (fishGot) {
           this.playVictorySound();
           Animated.timing(this.state.pullAnimationFish, {
-            toValue: 200,
+            toValue: 250,
             duration: 1000
           }).start();
           Animated.timing(this.state.pullAnimationRod, {
@@ -142,8 +142,8 @@ export default class GameScreen extends React.Component {
             source={this.props.navigation.getParam("fish").loop}
             style={{
               position: "absolute",
-              zIndex: 20,
-              right: 220,
+              zIndex: 10,
+              right: 180,
               bottom: this.state.pullAnimationFish
             }}
           />
@@ -166,7 +166,8 @@ const styles = StyleSheet.create({
     zIndex: 20
   },
   infoText: {
-    fontSize: 22,
+    textAlign: "center",
+    fontSize: 18,
     fontFamily: "pokemon"
   },
   victoryScreen: {
