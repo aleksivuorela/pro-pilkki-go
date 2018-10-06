@@ -41,10 +41,10 @@ export default class GameScreen extends React.Component {
 
   registerMove = acceleration => {
     if (!this.state.movementDetected) {
-      if (acceleration > 2) this.setState({count: this.state.count + 1});
-      if (acceleration < 2 && this.state.count !== 0) this.setState({count: 0});
+      if (acceleration > 1) this.setState({count: this.state.count + 1});
+      if (acceleration < 1 && this.state.count !== 0) this.setState({count: 0});
 
-      if (this.state.count == 3) {
+      if (this.state.count == 4) {
         const fishGot = Boolean(Math.floor(Math.random() * 2));
         this.setState({movementDetected: true, fishGot});
         const alertText = fishGot ? 'Sait kalan!' : 'Kala pääsi karkuun!';
@@ -85,7 +85,6 @@ export default class GameScreen extends React.Component {
   };
 
   render() {
-    console.log(this.props.navigation.getParam('fish'));
     return (
       <View style={styles.container}>
         { !this.state.movementDetected
