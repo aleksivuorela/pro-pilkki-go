@@ -109,7 +109,6 @@ export default class MapScreen extends React.Component {
   };
 
   render() {
-    console.log(getCatchedFish());
     return (
       <View style={styles.container}>
         <MapView
