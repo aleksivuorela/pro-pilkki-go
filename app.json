@@ -24,8 +24,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "fi.meiko.pro-pilkki-go"
     },
-    "githubUrl": "https://github.com/aleksivuorela/pro-pilkki-go"
+    "githubUrl": "https://github.com/aleksivuorela/pro-pilkki-go",
+    "android": {
+      "package": "fi.meiko.pro_pilkki_go"
+    }
   }
 }
